@@ -1,16 +1,18 @@
+const {pgDatabase, pgHost,pgPass, pgPort, pgUser} = require('./config');
 const express=require('express');
 const cors= require('cors');
 const bcrypt=require('bcrypt-nodejs');
 const knex = require('knex')({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
-      port : 5432,
-      user : 'postgres',
-      password : 'admin',
-      database : 'moneymanager'
+      host : pgHost,
+      port : pgPort,
+      user : pgUser,
+      password : pgPass,
+      database : pgDatabase
     }
   });
+const port = process.env.PORT || 3000;
 
 const app=express();
 app.use(express.json())
@@ -148,6 +150,6 @@ app.post('/transactions',(req,res) => {
     })
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log("The app is working");
 })
